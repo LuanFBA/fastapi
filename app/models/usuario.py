@@ -1,7 +1,7 @@
 from sqlalchemy import Boolean, Column, Integer, String
 from sqlalchemy.orm import relationship
 
-from src.db.database import Base
+from app.db.database import Base
 
 
 class Usuario(Base):

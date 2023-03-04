@@ -1,6 +1,6 @@
 from fastapi import APIRouter
 
-from src.api.api_v1.rotas import usuarios, produtos, login
+from app.api.api_v1.rotas import usuarios, produtos, login
 
 
 api_router = APIRouter()

@@ -1,6 +1,6 @@
-from src.db.session import SessionLocal
-from src.crud import crud_usuario
-from src.security.token import verificar_access_token
+from app.db.session import SessionLocal
+from app.crud import crud_usuario
+from app.security.token import verificar_access_token
 
 from sqlalchemy.orm import Session
 from fastapi import Depends, HTTPException

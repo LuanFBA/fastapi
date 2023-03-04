@@ -1,10 +1,10 @@
 from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
 
-from src.schemas.usuario import Usuario
-from src.schemas.produto import Produto, ProdutoCreate, ProdutoSimples
-from src.crud import crud_produto
-from src.api.deps import get_db, obter_usuario_logado
+from app.schemas.usuario import Usuario
+from app.schemas.produto import Produto, ProdutoCreate, ProdutoSimples
+from app.crud import crud_produto
+from app.api.deps import get_db, obter_usuario_logado
 
 
 router = APIRouter()

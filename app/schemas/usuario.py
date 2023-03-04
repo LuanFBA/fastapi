@@ -1,6 +1,6 @@
 from pydantic import BaseModel, EmailStr
 from typing import Optional
-from src.schemas.produto import Produto
+from app.schemas.produto import Produto
 
 
 class UsuarioBase(BaseModel):
