@@ -4,5 +4,5 @@ from app.db.session import engine
 
 Base = declarative_base()
 
-def criar_db():
+def get_db():
     Base.metadata.create_all(bind=engine)
