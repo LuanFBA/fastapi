@@ -14,11 +14,15 @@ services:
 
   luan-db:
     image: postgres:13.4-buster
-    container_name: "${DB_HOST-db}"
+    container_name: "${DB_HOST}"
     hostname: "${DB_HOST}"
+    volumes:
+            - projetop_db:/var/lib/postgresql/data
     environment:
       - POSTGRES_PASSWORD=${DB_PASS}
       - POSTGRES_USER=${DB_USER}
       - POSTGRES_DB=${DB_BASE}
     ports:
       - "5432:5432"
+volumes:
+    projetop_db:
