@@ -1,5 +1,5 @@
 from app.db.session import SessionLocal
-from app.crud import crud_usuario
+from app.repository.usuario import RepositorioUsuario
 from app.security.token import verificar_access_token
 
 from sqlalchemy.orm import Session
@@ -28,7 +28,7 @@ def obter_usuario_logado(token: str = Depends(oauth2_schema), db: Session = Depe
     if not email:
         raise HTTPException(status_code=401, detail="Token inválido!")
 
-    usuario_db = crud_usuario.obter_usuario_email(db, email)
+    usuario_db = RepositorioUsuario(db).obter_por_email(email=email)
 
     if not usuario_db:
         raise HTTPException(status_code=401, detail="Token inválido!")
