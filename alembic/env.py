@@ -1,5 +1,4 @@
 from app.db.database import Base # Importar Base
-from app.models import produto, usuario
 
 from logging.config import fileConfig
 
