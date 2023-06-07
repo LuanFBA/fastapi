@@ -17,7 +17,7 @@ def criar_produto_usuario(produto: ProdutoCreate, usuario: Usuario = Depends(obt
     return produto_criado
 
 
-@produtos_router.get("/", response_model=list[Produto])
+@produtos_router.get("/")
 def listar_produtos_usuario(usuario: Usuario = Depends(obter_usuario_logado), db: Session = Depends(get_db)):
     produto_db = RepositorioProduto(db).listar_me(usuario_id=usuario.id)
 
