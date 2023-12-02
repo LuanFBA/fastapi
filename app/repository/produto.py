@@ -5,8 +5,7 @@ from app.models.models import Produto
 from app.api.produtos.schemas import ProdutoCreate, ProdutoSimples
 
 
-class RepositorioProduto():
-
+class RepositorioProduto:
     def __init__(self, db: Session):
         self.db = db
 
@@ -16,10 +15,12 @@ class RepositorioProduto():
         return produto_db
 
     def criar(self, produto: ProdutoCreate, usuario_id: int):
-        produto_db = Produto(nome=produto.nome,
-                             detalhes= produto.detalhes,
-                             preco=produto.preco,
-                             usuario_id=usuario_id)
+        produto_db = Produto(
+            nome=produto.nome,
+            detalhes=produto.detalhes,
+            preco=produto.preco,
+            usuario_id=usuario_id,
+        )
         self.db.add(produto_db)
         self.db.commit()
         self.db.refresh(produto_db)
@@ -29,21 +30,26 @@ class RepositorioProduto():
         consulta = select(Produto)
         produtos = self.db.execute(consulta).scalars().all()
         return produtos
-    
+
     def listar_me(self, usuario_id: int):
         consulta = select(Produto).where(Produto.usuario_id == usuario_id)
         produto_db = self.db.execute(consulta).all()
         return produto_db
 
     def atualizar(self, id: int, produto: ProdutoSimples):
-        update_stmt = update(Produto).where(
-            Produto.id == id).values(nome=produto.nome,
-                                     detalhes=produto.detalhes,
-                                     preco=produto.preco,
-                                     disponivel=produto.disponivel)
+        update_stmt = (
+            update(Produto)
+            .where(Produto.id == id)
+            .values(
+                nome=produto.nome,
+                detalhes=produto.detalhes,
+                preco=produto.preco,
+                disponivel=produto.disponivel,
+            )
+        )
         self.db.execute(update_stmt)
         self.db.commit()
-    
+
     def remover(self, id: int):
         delete_stmt = delete(Produto).where(Produto.id == id)
 

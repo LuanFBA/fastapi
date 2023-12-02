@@ -25,7 +25,9 @@ def obter_usuario_me(usuario: Usuario = Depends(obter_usuario_logado)):
 
 
 @router.delete("/")
-def remover_usuario(db: Session = Depends(get_db), usuario: Usuario = Depends(obter_usuario_logado)):
+def remover_usuario(
+    db: Session = Depends(get_db), usuario: Usuario = Depends(obter_usuario_logado)
+):
     usuario_removido = crud_usuario.remover_usuario(db=db, usuario_id=usuario.id)
 
     return usuario_removido
@@ -34,8 +36,8 @@ def remover_usuario(db: Session = Depends(get_db), usuario: Usuario = Depends(ob
 @router.get("/{usuario_id}", response_model=Usuario)
 def obter_usuario(usuario_id: int, db: Session = Depends(get_db)):
     usuario_db = crud_usuario.obter_usuario(db=db, usuario_id=usuario_id)
-    
+
     if usuario_db is None:
         raise HTTPException(status_code=404, detail="Usuário não encontrado!")
-    
+
     return usuario_db

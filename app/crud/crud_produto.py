@@ -11,8 +11,16 @@ def listar_produtos(db: Session, skip: int = 0, limit: int = 100):
     return db.query(Produto).offset(skip).limit(limit).all()
 
 
-def listar_produtos_usuario(db: Session, usuario_id: int, skip: int = 0, limit: int = 100):
-    return db.query(Produto).filter(Produto.usuario_id == usuario_id).offset(skip).limit(limit).all()
+def listar_produtos_usuario(
+    db: Session, usuario_id: int, skip: int = 0, limit: int = 100
+):
+    return (
+        db.query(Produto)
+        .filter(Produto.usuario_id == usuario_id)
+        .offset(skip)
+        .limit(limit)
+        .all()
+    )
 
 
 def criar_produto_usuario(db: Session, produto: ProdutoCreate, usuario_id: int):
@@ -23,7 +31,14 @@ def criar_produto_usuario(db: Session, produto: ProdutoCreate, usuario_id: int):
     return produto_db
 
 
-def atualizar_produto(db: Session, produto_id: int, nome: str, detalhes: str, preco: float, disponivel: bool) -> Produto:
+def atualizar_produto(
+    db: Session,
+    produto_id: int,
+    nome: str,
+    detalhes: str,
+    preco: float,
+    disponivel: bool,
+) -> Produto:
     produto_db = obter_produto(db=db, produto_id=produto_id)
     produto_db.nome = nome
     produto_db.detalhes = detalhes

@@ -5,8 +5,7 @@ from app.models.models import Usuario
 from app.api.usuarios.schemas import UsuarioCreate
 
 
-class RepositorioUsuario():
-
+class RepositorioUsuario:
     def __init__(self, db: Session):
         self.db = db
 
@@ -19,14 +18,14 @@ class RepositorioUsuario():
         return self.db.execute(consulta).scalars().first()
 
     def criar(self, usuario: UsuarioCreate):
-        usuario_db = Usuario(nome=usuario.nome,
-                             email=usuario.email,
-                             senha=usuario.senha)
+        usuario_db = Usuario(
+            nome=usuario.nome, email=usuario.email, senha=usuario.senha
+        )
         self.db.add(usuario_db)
         self.db.commit()
         self.db.refresh(usuario_db)
         return usuario_db
-    
+
     def listar(self):
         consulta = select(Usuario)
         usuarios = self.db.execute(consulta).scalars().all()

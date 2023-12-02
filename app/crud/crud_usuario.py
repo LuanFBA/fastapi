@@ -2,6 +2,7 @@ from sqlalchemy.orm import Session
 from app.schemas.usuario import UsuarioCreate
 from app.models.usuario import Usuario
 
+
 def obter_usuario(db: Session, usuario_id: int) -> Usuario:
     return db.query(Usuario).filter(Usuario.id == usuario_id).first()
 

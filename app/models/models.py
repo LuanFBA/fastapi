@@ -13,7 +13,7 @@ class Usuario(Base):
     senha = Column(String)
     ativo = Column(Boolean, default=True)
 
-    produtos = relationship('Produto', back_populates='usuario')
+    produtos = relationship("Produto", back_populates="usuario")
 
 
 class Produto(Base):
