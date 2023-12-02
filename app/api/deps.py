@@ -8,7 +8,7 @@ from fastapi.security import OAuth2PasswordBearer
 from jose import JWTError
 
 
-oauth2_schema = OAuth2PasswordBearer(tokenUrl= "token")
+oauth2_schema = OAuth2PasswordBearer(tokenUrl="token")
 
 
 def get_db():
@@ -19,7 +19,9 @@ def get_db():
         db.close()
 
 
-def obter_usuario_logado(token: str = Depends(oauth2_schema), db: Session = Depends(get_db)):
+def obter_usuario_logado(
+    token: str = Depends(oauth2_schema), db: Session = Depends(get_db)
+):
     try:
         email: str = verificar_access_token(token)
     except JWTError:

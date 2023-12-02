@@ -21,7 +21,6 @@ def listar_usuarios(db: Session = Depends(get_db)):
 
 @usuarios_router.get("/me")
 def obter_usuario_me(usuario: Usuario = Depends(obter_usuario_logado)):
-
     if usuario.ativo == False:
         raise HTTPException(status_code=404, detail="Usuário não encontrado!")
 
@@ -38,8 +37,8 @@ def obter_usuario_me(usuario: Usuario = Depends(obter_usuario_logado)):
 @usuarios_router.get("/{usuario_id}", response_model=Usuario)
 def obter_usuario(usuario_id: int, db: Session = Depends(get_db)):
     usuario_db = RepositorioUsuario(db).obter(id=usuario_id)
-    
+
     if usuario_db is None:
         raise HTTPException(status_code=404, detail="Usuário não encontrado!")
-    
+
     return usuario_db

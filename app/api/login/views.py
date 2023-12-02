@@ -13,15 +13,16 @@ login_router = APIRouter()
 
 @login_router.post("/signup", response_model=Usuario, status_code=201)
 def signup(usuario: UsuarioCreate, db: Session = Depends(get_db)):
-
     usuario_encontrado = RepositorioUsuario(db).obter_por_email(email=usuario.email)
 
     if usuario_encontrado:
-        raise HTTPException(status_code=400, detail="Já existe um usuário com este e-mail!")
+        raise HTTPException(
+            status_code=400, detail="Já existe um usuário com este e-mail!"
+        )
 
     usuario.senha = gerar_hash(usuario.senha)
     usuario_criado = RepositorioUsuario(db).criar(usuario=usuario)
-    
+
     return usuario_criado
 
 
@@ -29,18 +30,22 @@ def signup(usuario: UsuarioCreate, db: Session = Depends(get_db)):
 def login(login_data: LoginData, db: Session = Depends(get_db)):
     email = login_data.email
     senha = login_data.senha
-    
+
     usuario_db = RepositorioUsuario(db).obter_por_email(email=email)
 
     if not usuario_db:
-        raise HTTPException(status_code=401, detail=f"E-mail ou senha estão incorretos!")
+        raise HTTPException(
+            status_code=401, detail=f"E-mail ou senha estão incorretos!"
+        )
 
     senha_valida = verificar_hash(senha, usuario_db.senha)
 
     if not senha_valida:
-        raise HTTPException(status_code=401, detail=f"E-mail ou senha estão incorretos!")
-    
+        raise HTTPException(
+            status_code=401, detail=f"E-mail ou senha estão incorretos!"
+        )
+
     # GERAR JWT
-    token = criar_access_token({'sub': usuario_db.email})
+    token = criar_access_token({"sub": usuario_db.email})
 
     return LoginSucesso(usuario=usuario_db, access_token=token)

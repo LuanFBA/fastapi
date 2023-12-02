@@ -23,4 +23,3 @@ def verificar_access_token(token: str):
     carga = jwt.decode(token, SECRET_KEY, algorithms=[ALGORITHM])
 
     return carga.get("sub")
-

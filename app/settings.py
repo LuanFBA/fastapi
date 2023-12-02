@@ -29,7 +29,7 @@ class Settings(pydantic.BaseSettings):
             password=self.db_pass,
             path=f"/{self.db_base}",
         )
-    
+
     class Config:
         env_file = ".env"
         env_file_encoding = "utf-8"
